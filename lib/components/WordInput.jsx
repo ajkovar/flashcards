@@ -18,11 +18,11 @@ class App extends React.Component {
   }
 
   componentDidMount(prevProps) {
-    this.refs.wordField.focus();
+    this.refs.wordInput.focus();
   }
 
   componentDidUpdate(prevProps) {
-    this.refs.wordField.focus();
+    this.refs.wordInput.focus();
   }
 
   handleChange(event) {
@@ -38,22 +38,31 @@ class App extends React.Component {
   submit() {
     if(this.state.word !== '') {
       this.props.handleSubmit(this.state.word);
-      this.state.word = ''
     }
-    this.refs.wordField.focus();
+    this.setState({
+      word: '',
+      wordInputBlank: this.state.word === ''
+    })
+    this.refs.wordInput.focus();
   }
 
   render() {
+    console.log(this.state)
+    const style = {
+      marginTop: -20
+    }
     return (
       <div>
         <TextField
-               ref="wordField"
+               style={style}
+               ref="wordInput"
                value={this.state.word}
                onKeyDown={this.handleKeyDown}
                onChange={this.handleChange}
                hintText="E.g. Salir, corer, mesa, etc."
-               floatingLabelText="Add a Flash Card"
+               floatingLabelText="Add a word"
                floatingLabelFixed={true}
+               errorText={this.state.wordInputBlank ? 'Enter a word to add' : undefined}
         />
         <FlatButton
                label="Add"
