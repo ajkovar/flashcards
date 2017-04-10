@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 
-class App extends React.Component {
+class WordInput extends React.Component {
   constructor(props) {
     super(props)
     this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -47,19 +47,14 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
-    const style = {
-      marginTop: -20
-    }
     return (
       <div>
         <TextField
-               style={style}
                ref="wordInput"
                value={this.state.word}
                onKeyDown={this.handleKeyDown}
                onChange={this.handleChange}
-               hintText="E.g. Salir, corer, mesa, etc."
+               hintText="E.g. Salir, Hola, Mesa, etc."
                floatingLabelText="Add a word"
                floatingLabelFixed={true}
                errorText={this.state.wordInputBlank ? 'Enter a word to add' : undefined}
@@ -74,4 +69,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default WordInput

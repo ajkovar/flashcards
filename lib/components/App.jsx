@@ -3,6 +3,7 @@ import ReactDOM from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import WordInput from './WordInput.jsx'
+import Card from './Card.jsx'
 import CSSModules from 'react-css-modules';
 import styles from './App.css'
 
@@ -28,8 +29,11 @@ class App extends React.Component {
                  iconClassNameRight='muidocs-icon-navigation-expand-more'
           />
           <div styleName='container'>
+            <h1>Current Card</h1>
+            <div styleName='card-container'>
+              <Card word='Enterar' />
+            </div>
             <WordInput handleSubmit={this.handleSubmit}/>
-            <ul>{words}</ul>
           </div>
         </div>
       </MuiThemeProvider>

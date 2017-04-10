@@ -1,3 +1,10 @@
 .container {
+  max-width: 600px;
+  margin: 0 auto;
   padding: 15px;
+  height: 1000px;
+}
+.card-container {
+  display: flex;
+  align-items: stretch;
 }
