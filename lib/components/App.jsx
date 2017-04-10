@@ -6,11 +6,15 @@ import WordInput from './WordInput.jsx'
 import Card from './Card.jsx'
 import CSSModules from 'react-css-modules';
 import styles from './App.css'
+import sample from 'lodash/sample'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {
+        currentWord: sample(this.props.words)
+    }
   }
 
   handleSubmit(word) {
@@ -31,7 +35,7 @@ class App extends React.Component {
           <div styleName='container'>
             <h1>Current Card</h1>
             <div styleName='card-container'>
-              <Card word='Enterar' />
+              <Card word={this.state.currentWord} />
             </div>
             <WordInput handleSubmit={this.handleSubmit}/>
           </div>
