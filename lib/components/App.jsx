@@ -3,6 +3,7 @@ import ReactDOM from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import WordInput from './WordInput.jsx'
+import WordList from './WordList.jsx'
 import Card from './Card.jsx'
 import CSSModules from 'react-css-modules';
 import styles from './App.css'
@@ -22,9 +23,6 @@ class App extends React.Component {
   }
 
   render() {
-    const words = this.props.words.map((word, i) => {
-      return <li key={i}>{word}</li>
-    })
     return (
       <MuiThemeProvider>
         <div>
@@ -38,6 +36,7 @@ class App extends React.Component {
               <Card word={this.state.currentWord} />
             </div>
             <WordInput handleSubmit={this.handleSubmit}/>
+            <WordList words={this.props.words} removeWord={this.props.removeWord}/>
           </div>
         </div>
       </MuiThemeProvider>
