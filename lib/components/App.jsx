@@ -8,17 +8,44 @@ import Card from './Card.jsx'
 import CSSModules from 'react-css-modules';
 import styles from './App.css'
 import sample from 'lodash/sample'
+import { ToastContainer, ToastMessage } from "react-toastr"
+import FlatButton from 'material-ui/FlatButton'
+
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.addWord = this.addWord.bind(this)
+    this.removeWord = this.removeWord.bind(this)
     this.state = {
-        currentWord: sample(this.props.words)
+      currentWord: sample(this.props.words)
     }
   }
 
-  handleSubmit(word) {
+  removeWord(word) {
+    const toastMessage = <div>
+      {`${word} has been removed from your deck. `}
+      <FlatButton fullWidth={true} label="Undo" onClick={() => this.props.addWord(word)} />
+    </div>
+    this.refs.container.info(
+      undefined,
+      toastMessage, {
+      timeOut: 5000
+    })
+    this.props.removeWord(word)
+  }
+
+  addWord(word) {
+    const toastMessage = <div>
+      {`${word} has been added to your deck`}
+      <FlatButton fullWidth={true} label="Undo" onClick={() => this.props.removeWord(word)} />
+    </div>
+    this.refs.container.info(
+      undefined,
+      toastMessage, {
+      timeOut: 5000
+    })
     this.props.addWord(word)
   }
 
@@ -35,9 +62,12 @@ class App extends React.Component {
             <div styleName='card-container'>
               <Card word={this.state.currentWord} />
             </div>
-            <WordInput handleSubmit={this.handleSubmit}/>
-            <WordList words={this.props.words} removeWord={this.props.removeWord}/>
+            <WordInput handleSubmit={this.addWord}/>
+            <WordList words={this.props.words} removeWord={this.removeWord}/>
           </div>
+          <ToastContainer ref="container"
+            toastMessageFactory={ToastMessageFactory}
+            className="toast-bottom-right" />
         </div>
       </MuiThemeProvider>
     )
