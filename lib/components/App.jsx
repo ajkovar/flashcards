@@ -62,7 +62,11 @@ class App extends React.Component {
             <div styleName='card-container'>
               <Card word={this.state.currentWord} />
             </div>
-            <WordInput handleSubmit={this.addWord}/>
+           <WordInput
+             handleSubmit={this.addWord}
+             fetchTranslations={this.props.fetchTranslations}
+             selectTranslation={this.props.selectTranslation}
+             textInfoById={this.props.textInfoById}/>
             <WordList words={this.props.words} removeWord={this.removeWord}/>
           </div>
           <ToastContainer ref="container"

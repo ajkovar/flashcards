@@ -5,6 +5,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import TextField from 'material-ui/TextField'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import Checkbox from 'material-ui/Checkbox'
+import without from 'lodash/without'
+import get from 'lodash/get'
 
 class WordInput extends React.Component {
   constructor(props) {
@@ -26,7 +29,11 @@ class WordInput extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({word: event.target.value});
+    const word = event.target.value
+    if(word !== '') {
+      this.props.fetchTranslations(word)
+    }
+    this.setState({word});
   }
 
   handleKeyDown(event) {
@@ -37,7 +44,7 @@ class WordInput extends React.Component {
 
   submit() {
     if(this.state.word !== '') {
-      this.props.handleSubmit(this.state.word);
+      this.props.handleSubmit(this.state.word)
     }
     this.setState({
       word: '',
@@ -47,6 +54,15 @@ class WordInput extends React.Component {
   }
 
   render() {
+    let textInfo = this.props.textInfoById[this.state.word] || {}
+    let translations = (textInfo.translations || []).map((translation, i) => {
+      return (
+        <Checkbox key={i}
+          label={translation.text}
+          checked={translation.isSelected}
+          onClick={() => this.props.selectTranslation(this.state.word, translation)}/>
+      )
+    })
     return (
       <div>
         <TextField
@@ -64,6 +80,9 @@ class WordInput extends React.Component {
                primary={true}
                onTouchTap={this.submit}
         />
+        { textInfo.isFetching ? <div>Fetching translations..</div> : '' }
+        { translations.length > 0 ? <div>The following translations were found:</div> : '' }
+        { translations }
       </div>
     )
   }
