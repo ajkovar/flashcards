@@ -1,12 +1,8 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
-import CSSModules from 'react-css-modules';
-import styles from './Card.css'
-
-import {List, ListItem} from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import ClearIcon from 'material-ui/svg-icons/content/clear';
+import {List, ListItem} from 'material-ui/List'
+import FlatButton from 'material-ui/FlatButton'
+import FontIcon from 'material-ui/FontIcon'
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 
 class WordList extends React.Component {
   constructor(props) {
@@ -14,20 +10,20 @@ class WordList extends React.Component {
   }
 
   handleDelete(word) {
-    console.log(word)
     this.props.removeWord(word)
   }
 
   render() {
     const words = this.props.words.map((word, i) => {
+      const translationsString = word.translations.map(t => t.text).join(',')
       return (
         <ListItem key={i} disabled={true}>
           <FlatButton
             primary={true}
             icon={<ClearIcon/>}
-            onClick={() => this.handleDelete(word)}
+            onClick={() => this.handleDelete(word.text)}
           />
-          {word}
+          {`${word.text} - ${translationsString}`}
         </ListItem>
       )
     })
@@ -35,4 +31,4 @@ class WordList extends React.Component {
   }
 }
 
-export default CSSModules(WordList, styles)
+export default WordList

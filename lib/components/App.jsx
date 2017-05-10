@@ -19,8 +19,12 @@ class App extends React.Component {
     this.addWord = this.addWord.bind(this)
     this.removeWord = this.removeWord.bind(this)
     this.state = {
-      currentWord: sample(this.props.words)
+      currentWord: sample(this.words(props))
     }
+  }
+
+  words(props) {
+    return Object.values(props.textInfoById).filter((card) => card.isSaved)
   }
 
   removeWord(word) {
@@ -28,11 +32,7 @@ class App extends React.Component {
       {`${word} has been removed from your deck. `}
       <FlatButton fullWidth={true} label="Undo" onClick={() => this.props.addWord(word)} />
     </div>
-    this.refs.container.info(
-      undefined,
-      toastMessage, {
-      timeOut: 5000
-    })
+    this.addToast(toastMessage)
     this.props.removeWord(word)
   }
 
@@ -41,12 +41,12 @@ class App extends React.Component {
       {`${word} has been added to your deck`}
       <FlatButton fullWidth={true} label="Undo" onClick={() => this.props.removeWord(word)} />
     </div>
-    this.refs.container.info(
-      undefined,
-      toastMessage, {
-      timeOut: 5000
-    })
+    this.addToast(toastMessage)
     this.props.addWord(word)
+  }
+
+  addToast(message) {
+    this.refs.container.info(undefined, message, {timeOut: 5000})
   }
 
   render() {
@@ -60,14 +60,15 @@ class App extends React.Component {
           <div styleName='container'>
             <h1>Current Card</h1>
             <div styleName='card-container'>
-              <Card word={this.state.currentWord} />
+              {this.state.currentWord ? <Card word={this.state.currentWord.text}/> : ''}
             </div>
-           <WordInput
-             handleSubmit={this.addWord}
-             fetchTranslations={this.props.fetchTranslations}
-             selectTranslation={this.props.selectTranslation}
-             textInfoById={this.props.textInfoById}/>
-            <WordList words={this.props.words} removeWord={this.removeWord}/>
+            <WordInput
+              handleSubmit={this.addWord}
+              fetchTranslations={this.props.fetchTranslations}
+              selectTranslation={this.props.selectTranslation}
+              addTranslation={this.props.addTranslation}
+              textInfoById={this.props.textInfoById}/>
+            <WordList words={this.words(this.props)} removeWord={this.removeWord}/>
           </div>
           <ToastContainer ref="container"
             toastMessageFactory={ToastMessageFactory}

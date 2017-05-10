@@ -2,18 +2,22 @@ import React from 'react'
 import ReactDOM from 'react'
 import { ENTER_KEY } from '../constants/keycodes'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import TranslationsEditor from './TranslationsEditor.jsx'
 import TextField from 'material-ui/TextField'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 import without from 'lodash/without'
-import get from 'lodash/get'
+import Divider from 'material-ui/Divider';
+// import debounce from 'lodash/debounce'
 
 class WordInput extends React.Component {
   constructor(props) {
     super(props)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    // this.fetchTranslations = debounce(this.fetchTranslations.bind(this), 500)
     this.submit = this.submit.bind(this)
     this.state = {
       word: ''
@@ -21,11 +25,11 @@ class WordInput extends React.Component {
   }
 
   componentDidMount(prevProps) {
-    this.refs.wordInput.focus();
+    this.refs.wordInput.focus()
   }
 
   componentDidUpdate(prevProps) {
-    this.refs.wordInput.focus();
+    this.refs.wordInput.focus()
   }
 
   handleChange(event) {
@@ -35,6 +39,10 @@ class WordInput extends React.Component {
     }
     this.setState({word});
   }
+
+  // fetchTranslations(word) {
+  //   this.props.fetchTranslations(word)
+  // }
 
   handleKeyDown(event) {
     if (event.which === ENTER_KEY) {
@@ -50,19 +58,19 @@ class WordInput extends React.Component {
       word: '',
       wordInputBlank: this.state.word === ''
     })
-    this.refs.wordInput.focus();
+    this.refs.wordInput.focus()
   }
 
   render() {
-    let textInfo = this.props.textInfoById[this.state.word] || {}
-    let translations = (textInfo.translations || []).map((translation, i) => {
-      return (
-        <Checkbox key={i}
-          label={translation.text}
-          checked={translation.isSelected}
-          onClick={() => this.props.selectTranslation(this.state.word, translation)}/>
-      )
-    })
+    const textInfo = this.props.textInfoById[this.state.word] || {}
+    const translations = textInfo.translations || []
+    const translationEditor = this.state.word !== '' && !textInfo.isFetching ? (
+      <TranslationsEditor
+        translations={translations}
+        text={this.state.word}
+        addTranslation={this.props.addTranslation}/>
+    ) : null
+    const addCardButton = <RaisedButton label="Save Card" primary={true} onTouchTap={this.submit}/>
     return (
       <div>
         <TextField
@@ -75,14 +83,10 @@ class WordInput extends React.Component {
                floatingLabelFixed={true}
                errorText={this.state.wordInputBlank ? 'Enter a word to add' : undefined}
         />
-        <FlatButton
-               label="Add"
-               primary={true}
-               onTouchTap={this.submit}
-        />
+        { translationEditor }
         { textInfo.isFetching ? <div>Fetching translations..</div> : '' }
-        { translations.length > 0 ? <div>The following translations were found:</div> : '' }
-        { translations }
+        <br/>
+        { translations.length > 0 ? addCardButton: '' }
       </div>
     )
   }
