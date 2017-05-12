@@ -6,7 +6,7 @@ var translate = require('@google-cloud/translate')({
 
 var app = express()
 app.get('/api/translate', function (req, res) {
-  translate.translate(req.query.text, 'en', function(err, translation, response) {
+  translate.translate(req.query.text, {from:'es', to:'en'}, function(err, translation, response) {
     console.log(response.data.translations)
     if (!err) {
       console.log(err)
