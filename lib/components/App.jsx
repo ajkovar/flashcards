@@ -18,9 +18,6 @@ class App extends React.Component {
     super(props)
     this.addWord = this.addWord.bind(this)
     this.removeWord = this.removeWord.bind(this)
-    this.state = {
-      currentWord: sample(this.words(props))
-    }
   }
 
   words(props) {
@@ -50,6 +47,7 @@ class App extends React.Component {
   }
 
   render() {
+    const currentWord = sample(this.words(this.props))
     return (
       <MuiThemeProvider>
         <div>
@@ -60,7 +58,7 @@ class App extends React.Component {
           <div styleName='container'>
             <h1>Current Card</h1>
             <div styleName='card-container'>
-              {this.state.currentWord ? <Card word={this.state.currentWord.text}/> : ''}
+              {currentWord ? <Card word={currentWord.text}/> : ''}
             </div>
             <WordInput
               handleSubmit={this.addWord}
