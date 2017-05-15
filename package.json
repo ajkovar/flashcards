@@ -30,7 +30,8 @@
     "redux-logger": "^3.0.1",
     "redux-storage": "^4.1.2",
     "redux-storage-engine-indexed-db": "^0.0.4",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

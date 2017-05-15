@@ -20,13 +20,9 @@ class App extends React.Component {
     this.removeWord = this.removeWord.bind(this)
   }
 
-  words(props) {
-    return Object.values(props.textInfoById).filter((card) => card.isSaved)
-  }
-
   removeWord(word) {
     const toastMessage = <div>
-      {`${word} has been removed from your deck. `}
+      {`${word} has been removed from your deck`}
       <FlatButton fullWidth={true} label="Undo" onClick={() => this.props.addWord(word)} />
     </div>
     this.addToast(toastMessage)
@@ -47,7 +43,6 @@ class App extends React.Component {
   }
 
   render() {
-    const currentWord = sample(this.words(this.props))
     return (
       <MuiThemeProvider>
         <div>
@@ -58,7 +53,7 @@ class App extends React.Component {
           <div styleName='container'>
             <h1>Current Card</h1>
             <div styleName='card-container'>
-              {currentWord ? <Card word={currentWord.text}/> : ''}
+              {this.props.currentCard ? <Card word={this.props.currentCard.text}/> : ''}
             </div>
             <WordInput
               handleSubmit={this.addWord}
@@ -66,7 +61,7 @@ class App extends React.Component {
               selectTranslation={this.props.selectTranslation}
               addTranslation={this.props.addTranslation}
               textInfoById={this.props.textInfoById}/>
-            <WordList words={this.words(this.props)} removeWord={this.removeWord}/>
+            <WordList words={this.props.cards} removeWord={this.removeWord}/>
           </div>
           <ToastContainer ref="container"
             toastMessageFactory={ToastMessageFactory}
