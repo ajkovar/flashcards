@@ -6,9 +6,11 @@ import styles from './Card.css'
 class Card extends React.Component {
   render() {
     return (
-      <Paper styleName='card' zDepth={2}>
-        <header>{this.props.word}</header>
-      </Paper>
+      <div styleName='container'>
+        <Paper styleName='card' zDepth={2}>
+          <header>{this.props.word}</header>
+        </Paper>
+      </div>
     )
   }
 }

@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import WordInput from './WordInput.jsx'
 import WordList from './WordList.jsx'
-import Card from './Card.jsx'
+import Question from './Question.jsx'
 import CSSModules from 'react-css-modules';
 import styles from './App.css'
 import sample from 'lodash/sample'
@@ -51,10 +51,11 @@ class App extends React.Component {
                  iconClassNameRight='muidocs-icon-navigation-expand-more'
           />
           <div styleName='container'>
-            <h1>Current Card</h1>
-            <div styleName='card-container'>
-              {this.props.currentCard ? <Card word={this.props.currentCard.text}/> : ''}
-            </div>
+        { this.props.currentCard ?
+          <Question
+            currentCard={this.props.currentCard}
+            possibleAnswers={this.props.possibleAnswers}/> :
+          ''}
             <WordInput
               handleSubmit={this.addWord}
               fetchTranslations={this.props.fetchTranslations}
