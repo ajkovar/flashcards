@@ -34,7 +34,8 @@ class WordInput extends React.Component {
 
   handleChange(event) {
     const word = event.target.value
-    if(word !== '') {
+    const textInfo = this.props.textInfoById[word]
+    if(word !== '' && !textInfo) {
       this.props.fetchTranslations(word)
     }
     this.setState({word});
@@ -59,6 +60,12 @@ class WordInput extends React.Component {
       wordInputBlank: this.state.word === ''
     })
     this.refs.wordInput.focus()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const textInfo = this.props.textInfoById[this.state.word] || {}
+    const nextTextInfo = nextProps.textInfoById[nextState.word] || {}
+    return this.state.word !== nextState.word || textInfo!== nextTextInfo
   }
 
   render() {

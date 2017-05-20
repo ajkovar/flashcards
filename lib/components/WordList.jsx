@@ -13,6 +13,10 @@ class WordList extends React.Component {
     this.props.removeWord(word)
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.words !== nextProps.words
+  }
+
   render() {
     const words = this.props.words.map((word, i) => {
       const translationsString = word.translations.map(t => t.text).join(',')

@@ -14,6 +14,10 @@ class TranslationEditor extends React.Component {
     this.props.addTranslation(this.props.text, translation)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.translations !== nextProps.translations
+  }
+
   render() {
     const translations = this.props.translations || []
     const translationComponents = translations.map((translation, i) => {

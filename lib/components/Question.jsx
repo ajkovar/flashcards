@@ -5,9 +5,11 @@ import styles from './Card.css'
 import Card from './Card.jsx'
 
 class Question extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return this.props.currentQuestion !== nextProps.currentQuestion
+  }
   render() {
     const { text, possibleAnswers } = this.props.currentQuestion
-    console.log('here')
     return (
       <div>
         <h1>Current Card</h1>

@@ -9,6 +9,7 @@ class TranslationInput extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {}
   }
 
   handleKeyDown(event) {
@@ -24,6 +25,10 @@ class TranslationInput extends React.Component {
 
   handleSubmit() {
     this.props.onSubmit(this.state.word)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.word !== nextState.word
   }
 
   render(){
