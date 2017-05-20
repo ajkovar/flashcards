@@ -6,12 +6,15 @@ import Card from './Card.jsx'
 
 class Question extends React.Component {
   render() {
-    const possibleAnswers = (this.props.possibleAnswers || []).map(a => <div>{a}</div>)
+    const { text, possibleAnswers } = this.props.currentQuestion
+    console.log('here')
     return (
       <div>
         <h1>Current Card</h1>
-        {this.props.currentCard ? <Card word={this.props.currentCard.text}/> : ''}
-        {this.props.currentCard ? possibleAnswers : ''}
+        <Card word={text}/>
+        {(possibleAnswers || []).map((a, i) => {
+          <div key={i}>{a}</div>
+         })}
       </div>
     )
   }

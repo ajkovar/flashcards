@@ -51,11 +51,7 @@ class App extends React.Component {
                  iconClassNameRight='muidocs-icon-navigation-expand-more'
           />
           <div styleName='container'>
-        { this.props.currentCard ?
-          <Question
-            currentCard={this.props.currentCard}
-            possibleAnswers={this.props.possibleAnswers}/> :
-          ''}
+            { this.props.currentQuestion ? <Question currentQuestion={this.props.currentQuestion} /> : ''}
             <WordInput
               handleSubmit={this.addWord}
               fetchTranslations={this.props.fetchTranslations}
