@@ -1,0 +1,29 @@
+.answer-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.answer {
+  margin: 5px;
+  background-color: #ddd;
+  border-radius: 12px;
+  padding: 7px 10px;
+  cursor: pointer;
+  /* animation-name: shrink; */
+  /* animation-duration: 100ms; */
+}
+/* @keyframes shrink { */
+/*     from {padding: 9px 12px;} */
+/*     to {padding: 7px 10px;} */
+/* } */
+/* @keyframes grow { */
+/*     from {padding: 7px 10px;} */
+/*     to {padding: 9px 12px;} */
+/* } */
+.answer:hover {
+  background-color: rgb(0, 188, 212);
+  color: #ddd;
+  /* padding: 9px 12px; */
+  font-weight: bold;
+  /* animation-name: grow; */
+  /* animation-duration: 100ms; */
+}

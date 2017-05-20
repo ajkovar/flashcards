@@ -43,6 +43,11 @@ class App extends React.Component {
   }
 
   render() {
+    const question = (
+      <Question
+        selectAnswer={this.props.selectAnswer}
+        currentQuestion={this.props.currentQuestion} />
+    )
     return (
       <MuiThemeProvider>
         <div>
@@ -51,7 +56,7 @@ class App extends React.Component {
                  iconClassNameRight='muidocs-icon-navigation-expand-more'
           />
           <div styleName='container'>
-            { this.props.currentQuestion ? <Question currentQuestion={this.props.currentQuestion} /> : ''}
+            { this.props.currentQuestion ? question : ''}
             <WordInput
               handleSubmit={this.addWord}
               fetchTranslations={this.props.fetchTranslations}
