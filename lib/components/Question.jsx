@@ -13,18 +13,26 @@ class Question extends React.Component {
     return () => this.props.selectAnswer(text, answer)
   }
   render() {
-    const { text, possibleAnswers, isCorrect, isAnswered } = this.props.currentQuestion
+    const {
+      text, possibleAnswers, isCorrect, isAnswered, correctAnswers
+    } = this.props.currentQuestion
+    const correctAnswersString = (correctAnswers || []).join(' or ')
+    const result = isCorrect ?
+      <div styleName='correct-result'>Correct!</div> :
+      <div styleName='incorrect-result'>Incorrect! The correct answer was {correctAnswersString}</div>
+    const answers = (possibleAnswers || []).map((a, i) => {
+      const style = correctAnswers ?
+        (correctAnswers.indexOf(a) > -1 ? 'answer' : 'wrong-answer') :
+        'answer'
+      return <div styleName={style} onClick={this.getSelectAnswerFn(a)} key={i}>{a}</div>
+    })
     return (
       <div>
         <h1>Current Card</h1>
         <Card word={text}/>
         <h4>Choose an answer</h4>
-        <div styleName="answer-container">
-          {(possibleAnswers || []).map((a, i) => {
-            return <div styleName="answer" onClick={this.getSelectAnswerFn(a)} key={i}>{a}</div>
-           })}
-        </div>
-        {isAnswered ? <div>{isCorrect ? 'Correct!' : 'Wrong!'}</div> : ''}
+        <div styleName="answer-container">{answers}</div>
+        {isAnswered ? result : ''}
       </div>
     )
   }
