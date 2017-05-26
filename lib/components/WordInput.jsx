@@ -86,7 +86,7 @@ class WordInput extends React.Component {
                onKeyDown={this.handleKeyDown}
                onChange={this.handleChange}
                hintText="E.g. Salir, Hola, Mesa, etc."
-               floatingLabelText="Add a word"
+               floatingLabelText="Add a card"
                floatingLabelFixed={true}
                errorText={this.state.wordInputBlank ? 'Enter a word to add' : undefined}
         />

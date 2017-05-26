@@ -1,0 +1,19 @@
+/* .container { */
+/*   overflow: hidden; */
+/* } */
+
+.container {
+  margin-top:0px;
+  opacity: 1;
+  transition: margin-top 100ms, opacity 100ms;
+  transition-timing-function: ease-out;
+}
+@keyframes grow {
+  from {margin-top:-1000px; }
+  to {margin-top: 0px;}
+}
+.list {
+  animation-name: grow;
+  animation-duration: 520ms;
+  height: 1000px;
+}

@@ -3,3 +3,30 @@
   margin: 0 auto;
   padding: 15px;
 }
+.list-container {
+  overflow: hidden;
+}
+
+.expand-cards {
+  margin-top:15px;
+}
+
+.hidden {
+  margin-top:-100%;
+  opacity: .3;
+  background-color:#dee;
+}
+
+.enter {
+  /* composes: hidden; */
+  margin-top:-100%;
+  opacity: .3;
+  /* background-color:#dee; */
+}
+
+.leave {
+  /* composes: hidden; */
+  margin-top:-100%;
+  opacity: .3;
+  /* background-color:#dee; */
+}

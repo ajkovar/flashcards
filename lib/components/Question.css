@@ -29,7 +29,7 @@
 .wrong-answer {
   composes: answer;
   animation-name: fade;
-  animation-duration: 2000ms;
+  animation-duration: 1000ms;
   opacity: 0;
 }
 .result {

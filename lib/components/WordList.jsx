@@ -1,8 +1,11 @@
 import React from 'react'
-import {List, ListItem} from 'material-ui/List'
+import CSSModules from 'react-css-modules';
 import FlatButton from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
+import styles from './WordList.css'
+import {List, ListItem} from 'material-ui/List'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 class WordList extends React.Component {
   constructor(props) {
@@ -14,7 +17,8 @@ class WordList extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.words !== nextProps.words
+    return this.props.words !== nextProps.words ||
+      this.props.cardListVisible != nextProps.cardListVisible
   }
 
   render() {
@@ -31,8 +35,8 @@ class WordList extends React.Component {
         </ListItem>
       )
     })
-    return <List>{words}</List>
+    return <List styleName="container">{words}</List>
   }
 }
 
-export default WordList
+export default CSSModules(WordList, styles)

@@ -10,6 +10,8 @@ import styles from './App.css'
 import sample from 'lodash/sample'
 import { ToastContainer, ToastMessage } from "react-toastr"
 import FlatButton from 'material-ui/FlatButton'
+import Divider from 'material-ui/Divider';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
@@ -57,17 +59,35 @@ class App extends React.Component {
           />
           <div styleName='container'>
             { this.props.currentQuestion ? question : ''}
+            <Divider style={{ marginTop: 20 }}/>
             <WordInput
               handleSubmit={this.addWord}
               fetchTranslations={this.props.fetchTranslations}
               selectTranslation={this.props.selectTranslation}
               addTranslation={this.props.addTranslation}
               textInfoById={this.props.textInfoById}/>
-            <WordList words={this.props.cards} removeWord={this.removeWord}/>
+            <div styleName="expand-cards">
+              <a href="javascript:;" onClick={this.props.toggleCardList}>View all cards in deck</a>
+            </div>
+
+            <div styleName="list-container">
+              <CSSTransitionGroup
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}
+                transitionName={ {
+                  enter: styles.enter,
+                  leave: styles.leave,
+                } }>
+                {this.props.cardListVisible ?
+                  <WordList key={1} words={this.props.cards} removeWord={this.removeWord}/> :
+                  ''}
+              </CSSTransitionGroup>
+            </div>
+
+            <ToastContainer ref="container"
+              toastMessageFactory={ToastMessageFactory}
+              className="toast-bottom-right" />
           </div>
-          <ToastContainer ref="container"
-            toastMessageFactory={ToastMessageFactory}
-            className="toast-bottom-right" />
         </div>
       </MuiThemeProvider>
     )
